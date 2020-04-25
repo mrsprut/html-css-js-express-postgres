@@ -7,10 +7,10 @@ var db = pgp("postgres://remote_admin:1@localhost:5432/postgres");
 app.use('/', express.static(__dirname + '/public'));
 
 app.get('/api/', function (req, res) {
-  db.one("SELECT $1 AS value", 123)
+  db.query("SELECT * FROM team")
     .then(function (data) {
-      console.log("DATA:", data.value);
-      res.send(`{data: ${data.value}}`);
+      console.log("DATA:", JSON.stringify(data));
+      res.send(`{data: ${JSON.stringify(data)}}`);
     })
     .catch(function (error) {
       console.log("ERROR:", error);
